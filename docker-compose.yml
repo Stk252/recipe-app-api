@@ -1,0 +1,23 @@
+# Latest version
+version: "3"
+
+services:
+  app:
+    build:
+      # app service, build section of configuration, context is current directory where docker-compose is run
+      context: .
+    ports:
+      # Map project from port 8000 on host to port 8000 on image
+      - "8000:8000"
+    # Allows updates made to the project into the docker image in real time
+    volumes:
+      # Maps app directories from local to image
+      - ./app:/app
+    # Command used to run application in docker container
+    # sh: shell
+    # -c: command
+    # python manage.py: Django development server
+    # host: 0.0.0.0:8000 (all IP addresses that run on the docker container), mapped to our local machine with ports
+    command: >
+      sh -c "python manage.py runserver 0.0.0.0:8000"
+
